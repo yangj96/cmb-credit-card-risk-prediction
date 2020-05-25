@@ -17,8 +17,8 @@ atdd_type中的0和0.0统一为0，1和1.0统一为1
 细化**比例类特征**，包括：双向交易行为的金额比例（贷存比）
 
 ###### 针对用户行为表
-构造用户访问页面编码的各类别次数统计，使用各类别的target statistic分数作为权重，行为总次数，总天数，平均每天次数；
-构造用户行为序列，使用tf-dif特征或使用nlp模型处理用户行为序列。Tf-idf将用户行为序列中的page_no集合看作一篇文档，将每个page_no视为文档中的文字使用tfidf，并可通过参数调整来降低维度，如sklearn中的TfidfVectorizer可使用max_df和min_df进行调整。Nlp模型则将每个用户点击的page_n列表构造作为句子，使用word2vec来构造page_no嵌入表示，然后使用简单的统计操作得到用户的向量表示，或者利用attention以及RNN/LSTM/GRU/Transformer等方法进行序列建模。
+构造用户访问页面编码的各类别次数统计，使用各类别的target encoding分数作为权重相乘以及用户行为总次数，总天数，平均每天次数等计数统计量；
+构造用户行为序列，使用tf-dif特征或使用nlp模型处理用户行为序列。Tf-idf将用户行为序列中的page_no集合看作一篇文档，将每个page_no视为文档中的文字使用tfidf（需要利用sklearn中的TfidfVectorizer的max_df和min_df进行参数调整降低维度）。NLP模型则将每个用户点击的page_no列表构造作为句子，使用word2vec来构造page_no嵌入表示，然后使用简单的统计操作得到用户的向量表示，或者利用attention以及RNN/LSTM/GRU/Transformer等方法进行序列建模。
 
 ##### 模型验证融合
 采用5折交叉验证，将cat、xgb、lgb多类树模型stacking融合
